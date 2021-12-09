@@ -1,4 +1,4 @@
-package fase2;
+package fase3;
 
 import java.io.IOException;
 import java.util.Scanner;
