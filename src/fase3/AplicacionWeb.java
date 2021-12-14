@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import componentesDiccionario.ABBPalabras;
 import componentesDiccionario.Diccionario;
+import componentesDiccionario.HashMapPalabras;
 import componentesInternet.Internet;
 
 public class AplicacionWeb {

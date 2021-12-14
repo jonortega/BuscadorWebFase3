@@ -2,6 +2,11 @@ package componentesInternet;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Scanner;
 
 import componentesDiccionario.Diccionario;
@@ -110,5 +115,77 @@ public class Internet {
 		if(pal != null) pal.imprimirCoincidencias();
 		else System.out.print("No se han encontrado coincidencias\n");
 	}
+	
+	/**
+	* Dadas dos URL indica si existe un camino de enlaces desde la URL de
+	* origen hasta la de destino
+	* @param url1: URL de origen
+	* @param url2: URL de destino
+	* @return: true si existe el camino, false si no existe
+	*/
+	public boolean estanConectados(String url1, String url2) {
+		boolean encontrado = false;
+		Web origen = webs.buscarWebPorURL(url1);
+		Web destino = webs.buscarWebPorURL(url2);
+		HashSet<Web> visitados = new HashSet<Web>();
+		visitados.add(origen);
+		Queue<Web> cola = new LinkedList<Web>();
+		cola.add(origen);
+		while(!cola.isEmpty() && !encontrado) {
+			Web laWeb = cola.remove();
+			if(laWeb.getNombre().equals(destino.getNombre())) encontrado = true;				
+			else {
+				Iterator<Web> ite = laWeb.getLinks().getWebs().iterator();
+				while(ite.hasNext()) {
+					Web aux = ite.next();
+					if(!visitados.contains(aux)) {
+						cola.add(aux);
+						visitados.add(aux);
+					}
+				}
+			}
+		}
+		return encontrado;
+	}
 
+	/**
+	* Dadas dos URL imprime el camino más corto desde la URL de origen hasta
+	* la de destino, si es que existe
+	* @param url1: URL de origen
+	* @param url2: URL de destino
+	*/
+	public void imprimirCamino(String url1, String url2) {
+		Web origen = webs.buscarWebPorURL(url1);
+		Web destino = webs.buscarWebPorURL(url2);
+		LinkedList<String> resultado = new LinkedList<String>();
+		HashMap<Web, Web> visitados = new HashMap<Web, Web>();
+		boolean encontrado = false;
+		visitados.put(origen, null);
+		Queue<Web> cola = new LinkedList<Web>();
+		cola.add(origen);
+		while(!cola.isEmpty() && !encontrado) {
+			Web laWeb = cola.remove();
+			if(laWeb.getNombre().equals(destino.getNombre())) encontrado = true;
+			else {
+				Iterator<Web> ite = laWeb.getLinks().getWebs().iterator();
+				while(ite.hasNext()) {
+					Web aux = ite.next();
+					if(!visitados.containsKey(aux)) {
+						cola.add(aux);
+						visitados.put(aux, laWeb);
+					}
+				}
+			}
+		}
+		if(encontrado) {
+			Web actual = destino;
+			while(actual!=null) {
+				resultado.addFirst(actual.getNombre());
+				actual = visitados.get(actual);
+			}
+			while(resultado!=null) {
+				System.out.println(resultado.remove());
+			}
+		}
+	}
 }

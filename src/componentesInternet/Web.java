@@ -34,6 +34,14 @@ public class Web {
 	}
 	
 	/**
+	 * Getter para el atributo links
+	 * @return link: la lista de enlaces de la web
+	 */
+	public ListaWebs getLinks () {
+		return links;
+	}
+	
+	/**
 	 * Añade la web con la que hace enlace la web actual
 	 * @param idEnlace: el id de la web con la que existe un enlace
 	 */
