@@ -3,7 +3,7 @@ package componentesDiccionario;
 import java.util.HashMap;
 
 public class HashMapPalabras implements InterfacePalabras {
-	HashMap<String, Palabra> hm;
+	private HashMap<String, Palabra> hm;
 
 	@Override
 	public void anadirPalabra(Palabra palabra) {
