@@ -18,13 +18,13 @@ public class AplicacionWeb {
 		Internet internet = Internet.getInstance();
 		internet.inicializar("./data/index", "./data/pld-arc");
 		
-		ABBPalabras arbolDeNavidad = new ABBPalabras();
+		HashMapPalabras hm = new HashMapPalabras(); //Error hasta crear la clase
 		Diccionario diccionario = Diccionario.getInstance();
-		diccionario.setDiccionario(arbolDeNavidad);
+		diccionario.setDiccionario(hm);
 		
 		diccionario.inicializar("./data/wordsshuffle.txt");
 		
-		arbolDeNavidad.filtrarPalabrasClave();
+		//arbolDeNavidad.filtrarPalabrasClave();
 		
 		System.out.println();
 		
@@ -45,6 +45,21 @@ public class AplicacionWeb {
 					System.out.println("\n------RESULTADOS------");
 					internet.buscadorWeb(pal);
 					System.out.println("----------------------"+"\n");
+					break;
+				case 2:
+					System.out.print("URL de origen: ");
+					String url12 = sc.nextLine();
+					System.out.print("URL de destino: ");
+					String url22 = sc.nextLine();
+					System.out.println("\n" + internet.estanConectados(url12, url22)); //Error hasta crear el metodo
+					break;
+				case 3:
+					System.out.print("URL de origen: ");
+					String url13 = sc.nextLine();
+					System.out.print("URL de destino: ");
+					String url23 = sc.nextLine();
+					System.out.println("\nCamino más corto entre "+url13+" y "+url23+":");
+					internet.imprimirCamino(url13, url23);
 					break;
 				default: 
 					break;
