@@ -3,29 +3,22 @@ package fase3;
 import java.io.IOException;
 import java.util.Scanner;
 
-import componentesDiccionario.ABBPalabras;
 import componentesDiccionario.Diccionario;
 import componentesDiccionario.HashMapPalabras;
 import componentesInternet.Internet;
 
 public class AplicacionWeb {
 
-	public AplicacionWeb() {
-		
-	}
-
 	public static void main(String[] args) throws IOException {
 		
 		Internet internet = Internet.getInstance();
 		internet.inicializar("./data/index", "./data/pld-arc");
 		
-		HashMapPalabras hm = new HashMapPalabras(); //Error hasta crear la clase
+		HashMapPalabras hm = new HashMapPalabras();
 		Diccionario diccionario = Diccionario.getInstance();
 		diccionario.setDiccionario(hm);
 		
 		diccionario.inicializar("./data/wordsshuffle.txt");
-		
-		//arbolDeNavidad.filtrarPalabrasClave();
 		
 		System.out.println();
 		
@@ -35,6 +28,8 @@ public class AplicacionWeb {
 		while(opcion!=0) {
 			System.out.println("Que deseas hacer?");
 			System.out.println("1. Buscar webs por palabra clave");
+			System.out.println("2. Comprobar si dos Web's estan conectadas");
+			System.out.println("3. Imprimir camino más corto entre dos Webs");
 			System.out.println("0. Salir\n");
 			System.out.print("Seleccion: ");
 			try {
