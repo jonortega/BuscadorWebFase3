@@ -47,5 +47,17 @@ public class ListaWebs {
 	public void anadirEnlace(int idWebOrigen, int idWebDestino) {
 		webs.get(idWebOrigen).anadirEnlace(idWebDestino);
 	}
+	
+	/**
+	* Dada una URL, devuelve la web de la lista que tiene dicha URL
+	* @param url: URL a buscar
+	* @return: Web con dicha URL (si está en la lista), si no null.
+	*/
+	public Web buscarWebPorURL(String url) {
+		for(Web w : webs) {
+			if(url.equals(w.getNombre())) return w;
+		}
+		return null;
+	}
 
 }
