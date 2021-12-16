@@ -127,20 +127,24 @@ public class Internet {
 		boolean encontrado = false;
 		Web origen = webs.buscarWebPorURL(url1);
 		Web destino = webs.buscarWebPorURL(url2);
-		HashSet<Web> visitados = new HashSet<Web>();
-		visitados.add(origen);
-		Queue<Web> cola = new LinkedList<Web>();
-		cola.add(origen);
-		while(!cola.isEmpty() && !encontrado) {
-			Web laWeb = cola.remove();
-			if(laWeb.getNombre().equals(destino.getNombre())) encontrado = true;				
-			else {
-				Iterator<Web> ite = laWeb.getLinks().getWebs().iterator();
-				while(ite.hasNext()) {
-					Web aux = ite.next();
-					if(!visitados.contains(aux)) {
-						cola.add(aux);
-						visitados.add(aux);
+		
+		if(origen==null || destino==null) System.out.println("No existe camino.");
+		else {
+			HashSet<Web> visitados = new HashSet<Web>();
+			visitados.add(origen);
+			Queue<Web> cola = new LinkedList<Web>();
+			cola.add(origen);
+			while(!cola.isEmpty() && !encontrado) {
+				Web laWeb = cola.remove();
+				if(laWeb.getNombre().equals(destino.getNombre())) encontrado = true;				
+				else {
+					Iterator<Web> ite = laWeb.getLinks().getWebs().iterator();
+					while(ite.hasNext()) {
+						Web aux = ite.next();
+						if(!visitados.contains(aux)) {
+							cola.add(aux);
+							visitados.add(aux);
+						}
 					}
 				}
 			}
@@ -149,7 +153,7 @@ public class Internet {
 	}
 
 	/**
-	* Dadas dos URL imprime el camino más corto desde la URL de origen hasta
+	* Dadas dos URL imprime el camino mas corto desde la URL de origen hasta
 	* la de destino, si es que existe
 	* @param url1: URL de origen
 	* @param url2: URL de destino
@@ -157,34 +161,46 @@ public class Internet {
 	public void imprimirCamino(String url1, String url2) {
 		Web origen = webs.buscarWebPorURL(url1);
 		Web destino = webs.buscarWebPorURL(url2);
-		LinkedList<String> resultado = new LinkedList<String>();
-		HashMap<Web, Web> visitados = new HashMap<Web, Web>();
-		boolean encontrado = false;
-		visitados.put(origen, null);
-		Queue<Web> cola = new LinkedList<Web>();
-		cola.add(origen);
-		while(!cola.isEmpty() && !encontrado) {
-			Web laWeb = cola.remove();
-			if(laWeb.getNombre().equals(destino.getNombre())) encontrado = true;
-			else {
-				Iterator<Web> ite = laWeb.getLinks().getWebs().iterator();
-				while(ite.hasNext()) {
-					Web aux = ite.next();
-					if(!visitados.containsKey(aux)) {
-						cola.add(aux);
-						visitados.put(aux, laWeb);
+		
+		if(origen==null || destino==null) System.out.println("No existe camino.");
+		else {
+			LinkedList<String> resultado = new LinkedList<String>();
+			HashMap<Web, Web> visitados = new HashMap<Web, Web>();
+			boolean encontrado = false;
+			
+			visitados.put(origen, null);
+			Queue<Web> cola = new LinkedList<Web>();
+			cola.add(origen);
+			
+			while(!cola.isEmpty() && !encontrado) {
+				Web laWeb = cola.remove();
+				
+				if(laWeb.getNombre().equals(destino.getNombre())) encontrado = true;
+				else {
+					Iterator<Web> ite = laWeb.getLinks().getWebs().iterator();
+					while(ite.hasNext()) {
+						Web aux = ite.next();
+						if(!visitados.containsKey(aux)) {
+							cola.add(aux);
+							visitados.put(aux, laWeb);
+						}
 					}
 				}
 			}
-		}
-		if(encontrado) {
-			Web actual = destino;
-			while(actual!=null) {
-				resultado.addFirst(actual.getNombre());
-				actual = visitados.get(actual);
-			}
-			while(resultado!=null) {
-				System.out.println(resultado.remove());
+			if(encontrado) {
+				Web actual = destino;
+				while(actual!=null) {
+					resultado.addFirst(actual.getNombre());
+					actual = visitados.get(actual);
+				}
+				System.out.print("<");
+				while(resultado.peek()!=null) {
+					System.out.print(resultado.remove() + ", ");
+					if(resultado.size() == 1) System.out.print(resultado.remove());
+				}
+				System.out.println(">");
+			} else {
+				System.out.println("No existe camino.");
 			}
 		}
 	}

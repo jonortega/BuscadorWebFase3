@@ -29,7 +29,7 @@ public class AplicacionWeb {
 			System.out.println("Que deseas hacer?");
 			System.out.println("1. Buscar webs por palabra clave");
 			System.out.println("2. Comprobar si dos Web's estan conectadas");
-			System.out.println("3. Imprimir camino m·s corto entre dos Webs");
+			System.out.println("3. Imprimir camino mas corto entre dos Webs");
 			System.out.println("0. Salir\n");
 			System.out.print("Seleccion: ");
 			try {
@@ -47,15 +47,19 @@ public class AplicacionWeb {
 					String url12 = sc.nextLine();
 					System.out.print("URL de destino: ");
 					String url22 = sc.nextLine();
-					System.out.println("\n" + internet.estanConectados(url12, url22)); //Error hasta crear el metodo
+					System.out.println("\n-----------------------");
+					System.out.println("Estan conectados: " + internet.estanConectados(url12, url22));
+					System.out.println("-----------------------\n");
 					break;
 				case 3:
 					System.out.print("URL de origen: ");
 					String url13 = sc.nextLine();
 					System.out.print("URL de destino: ");
 					String url23 = sc.nextLine();
-					System.out.println("\nCamino m√°s corto entre "+url13+" y "+url23+":");
+					System.out.println("\n-----------------------------------------------------------");
+					System.out.println("Camino mas corto entre "+url13+" y "+url23+":\n");
 					internet.imprimirCamino(url13, url23);
+					System.out.println("-----------------------------------------------------------"+"\n");
 					break;
 				default: 
 					break;
